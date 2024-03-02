@@ -1,0 +1,16 @@
+{% extends 'hotel/index.html' %}
+{% block body %}
+<div class = "container">
+    <h1>Room detail:</h1>
+        <h2>Room {{ room.number }}</h2>
+        <ul>
+            <li>
+            Capacity: {{ room.capacity }}
+            <br>
+            Location: {{ room.location }}
+            <br>
+            Description: {{ room.description }}
+            </li>
+        </ul>
+</div>
+{% endblock body %}
