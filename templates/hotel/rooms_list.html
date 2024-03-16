@@ -1,14 +1,12 @@
-{% extends 'hotel/index.html' %}
+{% extends 'base.html' %}
+
 {% block body %}
-<div class = "container">
-    <h1>Rooms:</h1>
-    <ul>
+<div class="container">
+    <h2>Rooms:</h2>
+    <div class="list-group">
         {% for room in rooms %}
-            <li>
-                {{ room.number }}
-            </li>
-            <br>
+        <a href="{% url 'get_room_detail' room.id %}" class="list-group-item list-group-item-action">{{ room.number }}</a>
         {% endfor %}
-    </ul>
+    </div>
 </div>
 {% endblock body %}

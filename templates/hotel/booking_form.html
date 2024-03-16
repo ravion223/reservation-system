@@ -1,24 +1,31 @@
-{% extends 'hotel/index.html' %}
-{% block body %}
-<div class = "container">
-    {% if request.user.is_authenticated %}
-    <h1>Booking form:</h1>
-    <form method="POST" action="{% url 'booking_form' %}">
-    {% csrf_token %}
-        <label>Room number:</label>
-        <input type = "text" id = "room_number" name = "room_number">
-        <br>
-        <label>Start time:</label>
-        <input type = "datetime-local" id = "start_time" name = "start_time">
-        <br>
-        <label>End time:</label>
-        <input type = "datetime-local" id = "end_time" name = "end_time">
-        <br>
-        <button type = "submit">Submit</button>
-    </form>
+{% extends 'base.html' %}
 
-</div>
+{% block body %}
+<div class="container">
+    {% if request.user.is_authenticated %}
+    <h1 class="mb-4">Booking Form:</h1>
+    <div class="card">
+        <div class="card-body">
+            <form method="POST" action="{% url 'booking_form' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="room_number" class="form-label">Room Number:</label>
+                    <input type="text" class="form-control" id="room_number" name="room_number" required>
+                </div>
+                <div class="mb-3">
+                    <label for="start_time" class="form-label">Start Time:</label>
+                    <input type="datetime-local" class="form-control" id="start_time" name="start_time" required>
+                </div>
+                <div class="mb-3">
+                    <label for="end_time" class="form-label">End Time:</label>
+                    <input type="datetime-local" class="form-control" id="end_time" name="end_time" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
     {% else %}
-        <h1>You are not authenticated</h1>
+    <h1>You are not authenticated</h1>
     {% endif %}
+</div>
 {% endblock %}

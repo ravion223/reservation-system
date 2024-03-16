@@ -1,16 +1,17 @@
-{% extends 'hotel/index.html' %}
+{% extends 'base.html' %}
+
 {% block body %}
-<div class = "container">
-    <h1>Room detail:</h1>
-        <h2>Room {{ room.number }}</h2>
-        <ul>
-            <li>
-            Capacity: {{ room.capacity }}
-            <br>
-            Location: {{ room.location }}
-            <br>
-            Description: {{ room.description }}
-            </li>
-        </ul>
+<div class="container">
+    <h2>Room Detail:</h2>
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title">Room {{ room.number }}</h2>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Capacity: {{ room.capacity }}</li>
+                <li class="list-group-item">Location: {{ room.location }}</li>
+                <li class="list-group-item">Description: {{ room.description }}</li>
+            </ul>
+        </div>
+    </div>
 </div>
 {% endblock body %}
