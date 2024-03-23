@@ -1,6 +1,9 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from hotel.models import *
+from django.utils import timezone
+import datetime
+from calendar import monthrange
 
 # Create your views here.
 
@@ -33,10 +36,22 @@ def get_users_list(request):
 
 
 def get_room_detail(request, pk: int):
-    room = Room.objects.get(id = pk)
+    room = get_object_or_404(Room, pk=pk)
+    today = timezone.now()
+    first_day_of_month = datetime.date(today.year, today.month, 1)
+    last_day_of_month = datetime.date(today.year, today.month, monthrange(today.year, today.month)[1])
+    bookings = Booking.objects.filter(room=room, start_time__range=(first_day_of_month, last_day_of_month))
+    booked_days = []
+    for booking in bookings:
+        for i in range(booking.start_time.day, booking.end_time.day + 1):
+            booked_days.append(i)
+    days_of_month = range(1, monthrange(today.year, today.month)[1] + 1)
 
     context = {
-        "room": room
+            'room': room,
+            'days_of_month': days_of_month,
+            'booked_days': booked_days,
+            'today': today,
     }
 
     return render(
@@ -85,3 +100,5 @@ def get_booking_detail(request, pk: int):
         "hotel/booking_detail.html",
         context
     )
+
+
